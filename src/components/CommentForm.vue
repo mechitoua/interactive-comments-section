@@ -48,7 +48,7 @@ function handleSubmit() {
 
 <template>
   <div class="bg-white rounded-lg p-4 md:p-4">
-    <form @submit.prevent="handleSubmit" class="flex items-start gap-4">
+    <form @submit.prevent="handleSubmit" class="flex flex-col md:flex-row items-start gap-4">
       <img
         v-if="!hideAvatar"
         :src="userAvatar"
@@ -58,12 +58,12 @@ function handleSubmit() {
       <textarea
         v-model="content"
         :placeholder="placeholder || 'Add a comment...'"
-        class="flex-1 p-3 border border-light-gray rounded-lg text-[16px] text-dark-blue min-h-[96px] order-2 resize-none"
+        class="flex-1 p-3 border border-light-gray rounded-lg text-[16px] w-full text-dark-blue min-h-[96px] order-2 resize-none"
         rows="3"
       ></textarea>
       <button
         type="submit"
-        class="bg-moderate-blue text-white px-6 py-3 rounded-lg hover:opacity-50 font-medium uppercase text-[16px] transition-opacity order-3 self-start"
+        class="bg-moderate-blue text-white px-6 py-3 rounded-lg hover:opacity-50 font-medium uppercase text-[16px] transition-opacity order-3 self-end"
       >
         {{ buttonText || 'Send' }}
       </button>
