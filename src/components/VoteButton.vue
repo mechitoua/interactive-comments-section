@@ -1,4 +1,17 @@
 <script setup lang="ts">
+/** 
+ * Props for the VoteButton component
+ * @property {number} score - The current vote score
+ */
+defineProps<{
+  score: number
+}>()
+
+/** 
+ * Emits events for upvote and downvote actions
+ * @emits upvote - Triggered when upvote button is clicked
+ * @emits downvote - Triggered when downvote button is clicked
+ */
 const emit = defineEmits<{
   upvote: []
   downvote: []

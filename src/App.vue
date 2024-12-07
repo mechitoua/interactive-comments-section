@@ -13,8 +13,10 @@ const currentUserAvatar = new URL(
 </script>
 
 <template>
-  <div class="min-h-screen bg-very-light-gray font-rubik flex items-center justify-center">
-    <div class="w-full max-w-[785px] mx-auto p-4 md:p-6 space-y-4">
+  <div
+    class="min-h-screen w-screen bg-very-light-gray font-rubik overflow-x-hidden flex items-center justify-center"
+  >
+    <div class="w-full max-w-[785px] px-4 md:px-6 space-y-4">
       <!-- Comments List -->
       <CommentCard v-for="comment in comments" :key="comment.id" :comment="comment" />
 

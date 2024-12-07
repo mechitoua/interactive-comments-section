@@ -1,8 +1,17 @@
 <script setup lang="ts">
+/**
+ * Props for the DeleteConfirmationModal component
+ * @property {boolean} visible - Controls the visibility of the modal
+ */
 defineProps<{
   visible: boolean
 }>()
 
+/**
+ * Emits events for modal interactions
+ * @emits close - Triggered when user wants to cancel deletion
+ * @emits confirm - Triggered when user confirms deletion
+ */
 const emit = defineEmits<{
   close: []
   confirm: []

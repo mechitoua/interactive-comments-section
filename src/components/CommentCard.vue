@@ -3,7 +3,7 @@ import { computed, ref } from 'vue'
 import type { Comment } from '@/types/comment'
 import { useComments } from '@/composables/useComments'
 import CommentForm from './CommentForm.vue'
-import DeleteConfirmationModal from './DeleteConfirmationModal.vue'
+import DeleteConfirmationModal from './ConfirmationModal.vue'
 
 const props = defineProps<{
   comment: Comment
@@ -12,9 +12,6 @@ const props = defineProps<{
 const { currentUser, replyingTo, editing, addReply, updateComment, deleteComment, updateScore } =
   useComments()
 
-const isCurrentUser = computed(() => props.comment.user.username === currentUser.value.username)
-
-// Import avatars
 const commentUserAvatar = new URL(
   `../assets/images/avatars/image-${props.comment.user.username}.webp`,
   import.meta.url,
@@ -27,42 +24,80 @@ const currentUserAvatar = new URL(
 
 const isDeleteModalVisible = ref(false)
 
+/**
+ * Increases the vote score for the current comment
+ * Calls the updateScore method from the comments composable
+ */
 function handleUpvote() {
   updateScore(props.comment.id, true)
 }
 
+/**
+ * Decreases the vote score for the current comment
+ * Calls the updateScore method from the comments composable
+ */
 function handleDownvote() {
   updateScore(props.comment.id, false)
 }
 
+/**
+ * Initiates the reply process for the current comment
+ */
 function handleReply() {
   replyingTo.value = props.comment.id
 }
 
+/**
+ * Initiates the edit process for the current comment
+ */
 function handleEdit() {
   editing.value = props.comment.id
 }
 
+/**
+ * Initiates the delete process by showing the confirmation modal
+ */
 function handleDelete() {
   isDeleteModalVisible.value = true
 }
 
+/**
+ * Confirms and executes the deletion of the current comment
+ * Closes the delete confirmation modal after deletion
+ */
 function confirmDelete() {
   deleteComment(props.comment.id)
   isDeleteModalVisible.value = false
 }
 
+/**
+ * Cancels the delete process and hides the confirmation modal
+ */
 function cancelDelete() {
   isDeleteModalVisible.value = false
 }
 
+/**
+ * Updates the content of the current comment
+ * @param {string} content - The new content for the comment
+ */
 function handleUpdate(content: string) {
   updateComment(props.comment.id, content)
 }
 
+/**
+ * Adds a new reply to the current comment
+ * @param {string} content - The content of the reply
+ */
 function handleReplySubmit(content: string) {
   addReply(props.comment.id, content, props.comment.user.username)
 }
+
+/**
+ * Determines if the current comment belongs to the logged-in user
+ * @returns {boolean} True if the comment is by the current user, false otherwise
+ */
+const isCurrentUser = computed(() => props.comment.user.username === currentUser.value.username)
 </script>
 
 <template>
@@ -120,7 +155,7 @@ function handleReplySubmit(content: string) {
                 class="flex items-center gap-2 text-moderate-blue hover:text-light-grayish-blue font-medium transition-colors"
               >
                 <img src="@/assets/images/icon-edit.svg" alt="edit" class="w-3 h-3" />
-                <span class="text-[16px]">Edit</span>
+                <span class="text-[16px] hover:text-light-blue">Edit</span>
               </button>
               <button
                 v-else
@@ -128,7 +163,7 @@ function handleReplySubmit(content: string) {
                 class="flex items-center gap-2 text-moderate-blue hover:text-light-grayish-blue font-medium transition-colors"
               >
                 <img src="@/assets/images/icon-reply.svg" alt="reply" class="w-3 h-3" />
-                <span class="text-[16px]">Reply</span>
+                <span class="text-[16px] hover:text-light-blue">Reply</span>
               </button>
             </div>
           </div>
@@ -136,6 +171,7 @@ function handleReplySubmit(content: string) {
           <!-- Comment text -->
           <div v-if="editing === comment.id">
             <CommentForm
+              :initial-content="comment.content"
               :content="comment.content"
               :user-avatar="currentUserAvatar"
               :username="currentUser.username"
@@ -199,18 +235,19 @@ function handleReplySubmit(content: string) {
       </div>
     </div>
 
-    <DeleteConfirmationModal 
+    <DeleteConfirmationModal
       :visible="isDeleteModalVisible"
       @close="cancelDelete"
       @confirm="confirmDelete"
     />
 
     <!-- Reply form -->
-    <div v-if="replyingTo === comment.id" class="pl-0 md:pl-16">
+    <div v-if="replyingTo === comment.id" class="pl-0">
       <CommentForm
         :user-avatar="currentUserAvatar"
         :username="currentUser.username"
         :replying-to="comment.user.username"
+        button-text="REPLY"
         @submit="handleReplySubmit"
       />
     </div>
@@ -218,9 +255,14 @@ function handleReplySubmit(content: string) {
     <!-- Nested replies -->
     <div
       v-if="comment.replies?.length"
-      class="pl-4 md:pl-12 ml-0 md:ml-10 border-l-2 border-light-gray space-y-4"
+      class="pl-4 md:pl-16 ml-0 md:ml-10 border-l-2 border-light-gray space-y-4"
     >
-      <CommentCard v-for="reply in comment.replies" :key="reply.id" :comment="reply" />
+      <CommentCard
+        v-for="reply in comment.replies"
+        :key="reply.id"
+        :comment="reply"
+        :class="{ 'pl-0 md:pl-0': !reply.replies?.length }"
+      />
     </div>
   </div>
 </template>
