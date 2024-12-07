@@ -2,8 +2,9 @@
 import { computed, ref } from 'vue'
 import type { Comment } from '@/types/comment'
 import { useComments } from '@/composables/useComments'
-import CommentForm from './CommentForm.vue'
 import DeleteConfirmationModal from './ConfirmationModal.vue'
+import ReplyForm from './ReplyForm.vue'
+import EditForm from './EditForm.vue' // New import
 
 const props = defineProps<{
   comment: Comment
@@ -126,7 +127,7 @@ const isCurrentUser = computed(() => props.comment.user.username === currentUser
 
         <!-- Comment content -->
         <div class="flex-1 min-w-0">
-          <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center justify-between mb-2">
             <div class="flex items-center gap-4">
               <img :src="commentUserAvatar" alt="avatar" class="w-8 h-8 rounded-full" />
               <span class="font-medium text-dark-blue">{{ comment.user.username }}</span>
@@ -170,12 +171,8 @@ const isCurrentUser = computed(() => props.comment.user.username === currentUser
 
           <!-- Comment text -->
           <div v-if="editing === comment.id">
-            <CommentForm
-              :initial-content="comment.content"
-              :content="comment.content"
-              :user-avatar="currentUserAvatar"
-              :username="currentUser.username"
-              button-text="UPDATE"
+            <EditForm 
+              :comment="comment"
               @submit="handleUpdate"
             />
           </div>
@@ -243,11 +240,11 @@ const isCurrentUser = computed(() => props.comment.user.username === currentUser
 
     <!-- Reply form -->
     <div v-if="replyingTo === comment.id" class="pl-0">
-      <CommentForm
-        :user-avatar="currentUserAvatar"
-        :username="currentUser.username"
-        :replying-to="comment.user.username"
-        button-text="REPLY"
+      <ReplyForm 
+        :current-user-avatar="currentUserAvatar"
+        :current-user="currentUser"
+        :comment="comment"
+        :replying-to="replyingTo"
         @submit="handleReplySubmit"
       />
     </div>
