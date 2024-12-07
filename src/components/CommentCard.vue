@@ -125,7 +125,7 @@ const isCurrentUser = computed(() => props.comment.user.username === currentUser
         </div>
 
         <!-- Comment content -->
-        <div class="flex-1">
+        <div class="flex-1 min-w-0">
           <div class="flex items-center justify-between mb-4">
             <div class="flex items-center gap-4">
               <img :src="commentUserAvatar" alt="avatar" class="w-8 h-8 rounded-full" />
