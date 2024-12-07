@@ -14,7 +14,7 @@ const currentUserAvatar = new URL(
 
 <template>
   <div class="min-h-screen bg-very-light-gray font-rubik flex items-center justify-center">
-    <div class="w-full max-w-[730px] mx-auto p-4 md:p-6 space-y-4">
+    <div class="w-full max-w-[785px] mx-auto p-4 md:p-6 space-y-4">
       <!-- Comments List -->
       <CommentCard v-for="comment in comments" :key="comment.id" :comment="comment" />
 

@@ -68,7 +68,7 @@ function handleReplySubmit(content: string) {
           >
             <img src="@/assets/images/icon-plus.svg" alt="plus" class="w-3 h-3" />
           </button>
-          <span class="text-moderate-blue font-medium text-base py-1">{{ comment.score }}</span>
+          <span class="text-moderate-blue font-medium text-base py-3">{{ comment.score }}</span>
           <button
             @click="handleDownvote"
             class="text-light-grayish-blue hover:text-moderate-blue transition-colors p-1"
@@ -188,7 +188,7 @@ function handleReplySubmit(content: string) {
     </div>
 
     <!-- Reply form -->
-    <div v-if="replyingTo === comment.id" class="pl-0 md:pl-11">
+    <div v-if="replyingTo === comment.id" class="pl-0 md:pl-16">
       <CommentForm
         :user-avatar="currentUserAvatar"
         :username="currentUser.username"
@@ -200,7 +200,7 @@ function handleReplySubmit(content: string) {
     <!-- Nested replies -->
     <div
       v-if="comment.replies?.length"
-      class="pl-4 md:pl-11 border-l-2 border-light-gray space-y-4"
+      class="pl-4 md:pl-12 ml-0 md:ml-10 border-l-2 border-light-gray space-y-4"
     >
       <CommentCard v-for="reply in comment.replies" :key="reply.id" :comment="reply" />
     </div>

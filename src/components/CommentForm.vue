@@ -25,7 +25,7 @@ function handleSubmit() {
 <template>
   <div class="bg-white rounded-lg p-4 md:p-6">
     <form @submit.prevent="handleSubmit" class="flex flex-col md:flex-row gap-4 items-start">
-      <img :src="userAvatar" :alt="username" class="w-8 h-8 rounded-full order-1 md:order-none" />
+      <img :src="userAvatar" :alt="username" class="w-10 h-10 rounded-full order-1 md:order-none" />
       <textarea
         v-model="content"
         :placeholder="placeholder || 'Add a comment...'"
