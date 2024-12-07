@@ -88,13 +88,36 @@ pnpm build
 
 ```
 interactive-comment-section/
+├── public/                    # Public static files
+│   ├── desktop-design.jpg     # Desktop design reference
+│   └── mobile-design.jpg      # Mobile design reference
 ├── src/
-│   ├── components/    # Vue components
-│   ├── assets/        # Static assets
-│   ├── App.vue        # Root component
-│   └── main.ts        # Application entry point
-├── public/            # Public static files
-└── [config files]     # Various configuration files
+│   ├── App.vue                # Root component
+│   ├── main.ts                # Application entry point
+│   ├── assets/                # Static assets
+│   │   ├── images/            # Image assets
+│   │   └── main.css           # Global styles
+│   ├── components/            # Vue components
+│   │   ├── CommentActions.vue # Comment action buttons
+│   │   ├── CommentCard.vue    # Individual comment display
+│   │   ├── CommentForm.vue    # Form for adding new comments
+│   │   ├── ConfirmationModal.vue  # Modal for delete confirmation
+│   │   ├── EditForm.vue       # Form for editing comments
+│   │   ├── ReplyForm.vue      # Form for adding replies
+│   │   ├── UpdateForm.vue     # Form for updating comments
+│   │   └── VoteButton.vue     # Voting interaction component
+│   ├── composables/           # Vue composition functions
+│   │   └── useComments.ts     # Comment management logic
+│   ├── data/                  # Static data
+│   │   └── comments.json      # Initial comments data
+│   ├── types/                 # TypeScript type definitions
+│   │   └── comment.ts         # Comment-related type definitions
+│   └── [other configuration files]
+├── [configuration files]      # Project configuration
+│   ├── tailwind.config.js     # Tailwind CSS configuration
+│   ├── vite.config.ts         # Vite build configuration
+│   └── tsconfig.json          # TypeScript configuration
+└── package.json               # Project dependencies and scripts
 ```
 
 ## Mobile-First Approach 📱
