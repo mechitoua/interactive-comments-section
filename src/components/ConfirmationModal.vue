@@ -21,7 +21,7 @@ const emit = defineEmits<{
 <template>
   <div
     v-if="visible"
-    class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"
+    class="absolute -inset-y-4 inset-x-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"
   >
     <div class="bg-white rounded-lg p-6 w-[400px] max-w-[90%] space-y-4">
       <h2 class="text-dark-blue font-medium text-[20px]">Delete comment</h2>
