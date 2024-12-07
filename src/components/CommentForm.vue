@@ -23,21 +23,21 @@ function handleSubmit() {
 </script>
 
 <template>
-  <div class="bg-white rounded-lg p-6">
-    <textarea
-      v-model="content"
-      :placeholder="placeholder || 'Add a comment...'"
-      class="w-full p-3 border border-light-gray rounded-lg mb-3 min-h-[96px] text-grayish-blue focus:border-moderate-blue focus:outline-none"
-      rows="3"
-    ></textarea>
-    <div class="flex justify-between items-start">
-      <img :src="userAvatar" :alt="username" class="w-8 h-8 rounded-full" />
+  <div class="bg-white rounded-lg p-4 md:p-6">
+    <form @submit.prevent="handleSubmit" class="flex flex-col md:flex-row gap-4 items-start">
+      <img :src="userAvatar" :alt="username" class="w-8 h-8 rounded-full order-1 md:order-none" />
+      <textarea
+        v-model="content"
+        :placeholder="placeholder || 'Add a comment...'"
+        class="flex-1 p-3 border border-light-gray rounded-lg text-[16px] text-dark-blue placeholder:text-grayish-blue focus:border-moderate-blue focus:outline-none resize-none min-h-[96px] order-3 md:order-none"
+        rows="3"
+      ></textarea>
       <button
-        @click="handleSubmit"
-        class="bg-moderate-blue text-white px-6 py-3 rounded-lg hover:opacity-70 font-medium uppercase transition-opacity"
+        type="submit"
+        class="bg-moderate-blue text-white px-8 py-3 rounded-lg hover:opacity-50 font-medium uppercase text-[16px] transition-opacity order-2 md:order-none"
       >
         {{ buttonText || 'Send' }}
       </button>
-    </div>
+    </form>
   </div>
 </template>
