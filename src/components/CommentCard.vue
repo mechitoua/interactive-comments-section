@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import type { Comment } from '@/types/comment'
 import { useComments } from '@/composables/useComments'
 import CommentForm from './CommentForm.vue'
+import DeleteConfirmationModal from './DeleteConfirmationModal.vue'
 
 const props = defineProps<{
   comment: Comment
@@ -24,6 +25,8 @@ const currentUserAvatar = new URL(
   import.meta.url,
 ).href
 
+const isDeleteModalVisible = ref(false)
+
 function handleUpvote() {
   updateScore(props.comment.id, true)
 }
@@ -41,7 +44,16 @@ function handleEdit() {
 }
 
 function handleDelete() {
+  isDeleteModalVisible.value = true
+}
+
+function confirmDelete() {
   deleteComment(props.comment.id)
+  isDeleteModalVisible.value = false
+}
+
+function cancelDelete() {
+  isDeleteModalVisible.value = false
 }
 
 function handleUpdate(content: string) {
@@ -186,6 +198,12 @@ function handleReplySubmit(content: string) {
         </div>
       </div>
     </div>
+
+    <DeleteConfirmationModal 
+      :visible="isDeleteModalVisible"
+      @close="cancelDelete"
+      @confirm="confirmDelete"
+    />
 
     <!-- Reply form -->
     <div v-if="replyingTo === comment.id" class="pl-0 md:pl-16">
