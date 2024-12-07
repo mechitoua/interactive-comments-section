@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <main>
-    <h1 class="text-3xl font-bold underline">interactive-comments-section</h1>
+  <main class="font-rubik min-h-screen bg-very-light-gray">
+    <h1 class="text-3xl font-bold text-moderate-blue">interactive-comments-section</h1>
   </main>
 </template>

@@ -2,22 +2,26 @@
 
 A dynamic and responsive comment section built with Vue 3, TypeScript, and Tailwind CSS. This application allows users to interact with comments through various actions while maintaining a clean and modern user interface.
 
-![Mobile Design](./public/mobile-design.jpg)
-![Active States](./public/active-states.jpg)
+| Mobile Design | Desktop Design |
+|:-------------:|:-------------:|
+| ![Mobile Design](./public/mobile-design.jpg) | ![Desktop Design](./public/desktop-design.jpg) |
 
 ## Features
 
 - **Full CRUD Operations**
+
   - Create new comments and replies
   - Read existing comments and their nested replies
   - Update your own comments and replies
   - Delete comments you've created
 
 - **Voting System**
+
   - Upvote and downvote comments
   - Real-time vote count updates
 
 - **Responsive Design**
+
   - Mobile-first approach
   - Optimized layout for all screen sizes
   - Smooth transitions and hover states
@@ -47,22 +51,26 @@ A dynamic and responsive comment section built with Vue 3, TypeScript, and Tailw
 ### Installation
 
 1. Clone the repository
+
 ```bash
 git clone [your-repo-url]
 cd interactive-comment-section
 ```
 
 2. Install dependencies
+
 ```bash
 pnpm install
 ```
 
 3. Start the development server
+
 ```bash
 pnpm dev
 ```
 
 4. Build for production
+
 ```bash
 pnpm build
 ```
